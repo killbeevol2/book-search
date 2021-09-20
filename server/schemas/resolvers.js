@@ -29,7 +29,15 @@ const resolvers = {
             return {user, token};
         },
         saveBook: async (parent, {bookData}, context) => {
-            
+            if (context.user){
+                const updatedUser = await User.findByIdAndUpdate(
+                    { _id: user._id },
+                    { $push: { savedBooks: bookData } },
+                    { new: true}
+                );
+                return (updatedUser); 
+            }
+            throw new AuthenticationError('Please login');
         },
         removeBook: {
 
