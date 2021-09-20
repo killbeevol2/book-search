@@ -31,7 +31,7 @@ const resolvers = {
         saveBook: async (parent, {bookData}, context) => {
             if (context.user){
                 const updatedUser = await User.findByIdAndUpdate(
-                    { _id: user._id },
+                    { _id: context.user._id },
                     { $push: { savedBooks: bookData } },
                     { new: true}
                 );
@@ -39,8 +39,17 @@ const resolvers = {
             }
             throw new AuthenticationError('Please login');
         },
-        removeBook: {
-
+        removeBook: async (parent, {bookId}, context) => {
+            if (context.user){
+                const updatedUser = await User.findByIdAndUpdate(
+                    { _id: context.user._id },
+                    { $pull: { savedBooks: bookId } },
+                    { new: true}
+                );
+                return (updatedUser); 
+            }
+            throw new AuthenticationError('Please login');
         },
     },
 };
+module.exports = resolvers;
