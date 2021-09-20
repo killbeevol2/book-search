@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { ADD_USER } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
@@ -41,8 +41,8 @@ const SignupForm = () => {
         }
       });
 
-
-      Auth.login(data.addUser.token);
+      console.log(response);
+      Auth.login(response.data.addUser.token);
     } catch (err) {
       console.error(err);
     }

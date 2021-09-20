@@ -38,8 +38,8 @@ const LoginForm = () => {
           ...userFormData
         }
       });
-
-      Auth.login(data.login.token);
+      console.log(response);
+      Auth.login(response.data.login.token);
     } catch (err) {
       console.error(err);
     }
