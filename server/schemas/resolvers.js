@@ -21,13 +21,13 @@ const resolvers = {
                 throw new AuthenticationError('Wrong Password!')
             }
             const token = signToken(user);
-            return {user, token};
+            return {token, user};
         },
         addUser: async (parent, args) => { 
             const user = await User.create(args);
             const token = signToken(user);
             console.log(user);
-            return {user, token};
+            return {token, user};
         },
         saveBook: async (parent, {bookData}, context) => {
             if (context.user){
